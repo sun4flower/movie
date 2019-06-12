@@ -1,0 +1,12 @@
+<view class="move" wx:for="{{moveList}}" wx:key="{{index}}">
+  <image class="moveImg" src="{{item.images.small}}"></image>
+  <view class="moveInfor">
+    <view class="moveTitle">{{item.title}}</view>
+    <view class="moveCount">观众评分：<text style='color:faaf00'>{{item.rating.average}}</text>分数</view>
+    <view>主演： <text wx:for="{{item.casts}}" wx:key="{{index}}" >{{item.name}} </text></view>
+   
+    <view>{{item.year}}</view>
+     <button class="btn" bindtap="review" data-moveid="{{item.id}}">评价</button>
+  </view>
+
+</view>

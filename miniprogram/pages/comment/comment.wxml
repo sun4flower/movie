@@ -1,0 +1,30 @@
+<!--pages/comment/comment.wxml-->
+<view>
+  <view class="detail-container" style="background:url({{detail.images.large}}) no-repeat top/cover">
+  </view>
+  <view class="detail-mask"></view>
+  <view class="detail-info">
+    <image src="{{detail.images.large}}" class="detail-img"></image>
+    <view class="detail">
+      <view class="detail-nm">{{detail.title}} </view>
+      <view style='font-size:30rpx;' >{{detail.original_title}}
+      </view>
+      <view class="detail_sc">评分:<text style='color:yellow;'>{{detail.rating.average}}</text></view>
+       <view>{{detail.countries[0]}}</view>
+    </view>
+   
+  </view>
+  <view class="mini">{{detail.summary}}</view>
+   <van-field
+    value="{{content}}"
+    placeholder="请填写评价吧"
+    border="{{ false }}"
+    bind:change="onContentChange"
+  />
+  <van-rate value="{{rate}}" bind:change="onRateChange" />
+  <van-button type="warning" bindtap="uploadImg">上传图片</van-button>
+  <view>
+      <image wx:for='{{imgs}}' src="{{item}}" wx:key="{{index}}" class="img-content"></image>
+  </view>
+  <van-button type="danger" size="large" bindtap="submit">提交评价</van-button>
+</view>

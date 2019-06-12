@@ -1,0 +1,31 @@
+/* pages/move/move.wxss */
+.move{
+  height: 300rpx;
+  display: flex;
+  padding: 10rpx;
+  border-bottom: 1rpx solid #ccc;
+  font-size: 32rpx;
+}
+.moveImg{
+  width: 200rpx;
+  height: 100%;
+  margin-right: 20rpx;
+}
+.moveInfor{
+  flex:1;
+}
+.moveTitle{
+  font-size: 40rpx;
+  color: #666;
+  font-weight: bold;
+}
+.btn{
+  width: 120rpx;
+  height: 60rpx;
+  text-align:center;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  float:left;
+  background: #E54847;
+  color: #fff;
+}
