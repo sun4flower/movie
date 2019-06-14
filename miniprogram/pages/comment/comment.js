@@ -76,8 +76,6 @@ Page({
     }))
     }
     Promise.all(promiseArr).then(res=>{
-      wx.hideLoading()
-      console.log(db)
       db.collection('comment').add({
         data:{
           content:this.data.content,
@@ -87,12 +85,14 @@ Page({
 
         }
       }).then(res=>{
+        wx.hideLoding()
         wx.showToast({
           title: '评论成功',
         })
         console.log(res)
       }).catch(err=>{
         console.log(err)
+        wx.hideLoding()
         wx.showToast({
           title: '评论失败',
         })
