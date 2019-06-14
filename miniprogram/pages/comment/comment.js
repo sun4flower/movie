@@ -36,6 +36,7 @@ Page({
     }).catch(res=>{
       console.log(res)
     })
+    this.getComment()
   },
   onContentChange(e){
     this.setData({
@@ -114,6 +115,16 @@ Page({
     })
 
 
+  },
+  getComment(){
+    console.log(888)
+    db.collection('comment').where({
+        moveid: this.data.moveid
+    }).get().then(res => {
+      console.log(res)
+    }).catch(err => {
+      
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
