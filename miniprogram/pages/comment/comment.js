@@ -85,14 +85,14 @@ Page({
 
         }
       }).then(res=>{
-        wx.hideLoding()
+        wx.hideLoading()
         wx.showToast({
           title: '评论成功',
         })
         console.log(res)
       }).catch(err=>{
         console.log(err)
-        wx.hideLoding()
+        wx.hideLoading()
         wx.showToast({
           title: '评论失败',
         })
