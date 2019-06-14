@@ -40,3 +40,26 @@
   height: 200rpx;
   margin-right: 20rpx;
 }
+.contentBox{
+  display:flex;
+  padding:10rpx;
+  align-items:center;
+}
+.headImg{
+  width:100rpx;
+  height:100rpx;
+  margin-right:20rpx;
+  border-radius:50%;
+}
+.review{
+  font-size:20rpx;
+  display:block;
+   overflow: hidden;/*超出部分隐藏*/
+  white-space: nowrap;/*不换行*/
+  text-overflow:ellipsis;/*超出部分文字以...显示*/
+}
+.reviewImg{
+  width:80rpx;
+  height:80rpx;
+  padding:10rpx;
+}

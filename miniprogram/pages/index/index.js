@@ -6,13 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //用户登录
     wx.cloud.callFunction({
       name:"login"
     }).then(res=>{
@@ -27,8 +27,8 @@ Page({
     })
     
   },
+  //判断用户是否授权
   getUserInfor(){
-    
     db.collection("userInfor").where({
       openid:wx.getStorageSync("user").openid
     }).get().then(res=>{
@@ -37,9 +37,10 @@ Page({
           url: '../move/move',
         })
       }
-      console.log(res)
+     // console.log(res)
     })
   },
+  //获取用户信息
   bindgetuserinfo(e){
     if(e.detail.errMsg=="getUserInfo:ok"){
       let userInfo=e.detail.userInfo

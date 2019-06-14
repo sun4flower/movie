@@ -28,3 +28,22 @@
   </view>
   <van-button type="danger" size="large" bindtap="submit">提交评价</van-button>
 </view>
+<view>
+<view wx:for="{{commentArr}}" wx:key="{{index}}">
+<view class="contentBox"> 
+  <image src="{{item.headImg}}" class="headImg"></image>
+  <view>
+    <text>{{item.nickName}}</text><van-rate value="{{item.rate}}"  />
+    <view>
+      <text class="review">{{item.content}}</text>
+      <view style="display:flex;">
+          <image wx:for="{{item.fileId}}"  wx:for-item="atom" wx:key="key" src="{{atom}}" class="reviewImg"></image>
+      </view>
+    
+        
+    </view>
+    
+  </view>
+</view>
+</view>
+</view>

@@ -5,8 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    moveList:[],
-    content:""
+    moveList:[]//电影列表
   },
 
   /**
@@ -16,6 +15,7 @@ Page({
    this.getMoveList()
    
   },
+  //获取电影列表
   getMoveList(){
     wx.showLoading({
       title: '加载中',
@@ -29,29 +29,26 @@ Page({
       },
       // 传递给云函数的参数
       success: res => {
-        console.log(res)
         this.setData({
           moveList: this.data.moveList.concat(JSON.parse(res.result).subjects)
         })
         wx.hideLoading()
-        // output: res.result === 3
       },
       fail: err => {
         console.log(err)
         wx.hideLoading()
-        // handle error
       },
       complete: () => {
         // ...
       }
     })
   },
+  //跳转评论页
   review(event){
     event.target.dataset.moveid
     wx.navigateTo({
       url: `../comment/comment?movieid=${event.target.dataset.moveid}`,
     })
-    console.log(event)
   },
   onChange(){
 

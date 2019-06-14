@@ -7,22 +7,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detail:[],
-    content:"",
-    rate:5,
-    imgs:[],
-    fileId:[],
-    moveid:""
+    detail:[],//详情
+    content:"",//评论
+    rate:5,//星级
+    imgs:[],//图片
+    fileId:[],//图片id
+    moveid:"",//电影ID
+    headImg:"",//头像
+    nickName:"",//昵称,
+    commentArr:[]//评论列表
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({
       moveid: options.movieid
     })
+    //获取电影信息
     wx.cloud.callFunction({
       name:"getDetail",
       data:{
@@ -32,22 +35,38 @@ Page({
       this.setData({
         detail:JSON.parse(res.result)
       })
-      console.log(JSON.parse(res.result))
-    }).catch(res=>{
-      console.log(res)
+    }).catch(err=>{
+      console.log(err)
     })
+    //获取评论
     this.getComment()
+    this.getHeadImg()
   },
+  getHeadImg(){
+    db.collection('userInfor').where({
+      openid:wx.getStorageSync("user").openid
+    }).get().then(res=>{
+      let data=res.data[0];
+      this.setData({
+        headImg:data.avatarUrl,//头像
+        nickName:data.nickname//昵称
+      })
+      
+    })
+  },
+  //填写评论
   onContentChange(e){
     this.setData({
       content:e.detail
     })
   },
+  //更改星级
   onRateChange(e){
     this.setData({
       rate: e.detail
     })
   },
+  //提交评论
   submit(){
     console.log(this.data.content)
     wx.showLoading({
@@ -67,7 +86,6 @@ Page({
             fileId:this.data.fileId.concat(res.fileID)
           })
           resolve()
-          console.log(res.fileID)
         },
         fail: err => {
           // handle error
@@ -76,16 +94,25 @@ Page({
     }))
     }
     Promise.all(promiseArr).then(res=>{
+      
       db.collection('comment').add({
         data:{
           content:this.data.content,
           rate:this.data.rate,
           moveid:this.data.moveid,
-          fileId:this.data.fileId
+          fileId:this.data.fileId,
+          headImg:this.data.headImg,
+          nickName:this.data.nickName
 
         }
       }).then(res=>{
         wx.hideLoading()
+        this.getComment()
+        this.setData({
+          content:"",
+          rate:5,
+          imgs:[]
+        })
         wx.showToast({
           title: '评论成功',
         })
@@ -99,6 +126,7 @@ Page({
       })
     })
   },
+  //上传评论图片
   uploadImg(){
     wx.chooseImage({
       count: 9,
@@ -107,7 +135,6 @@ Page({
       success:res=> {
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
-        console.log(tempFilePaths)
         this.setData({
           imgs:this.data.imgs.concat(tempFilePaths)
         })
@@ -116,14 +143,17 @@ Page({
 
 
   },
+  //获取用户评论
   getComment(){
-    console.log(888)
     db.collection('comment').where({
         moveid: this.data.moveid
     }).get().then(res => {
+      this.setData({
+        commentArr:res.data
+      })
       console.log(res)
     }).catch(err => {
-      
+      console.log(err)
     })
   },
   /**
