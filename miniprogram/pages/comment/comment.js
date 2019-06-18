@@ -88,6 +88,7 @@ Page({
           resolve()
         },
         fail: err => {
+          console.log(err)
           // handle error
         }
       })

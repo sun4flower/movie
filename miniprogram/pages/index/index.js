@@ -13,6 +13,9 @@ Page({
    */
   onLoad: function (options) {
     //用户登录
+    this.Login()
+  },
+  Login(){
     wx.cloud.callFunction({
       name:"login"
     }).then(res=>{
@@ -25,7 +28,6 @@ Page({
     }).catch(err=>{
       console.log(err)
     })
-    
   },
   //判断用户是否授权
   getUserInfor(){
@@ -43,7 +45,7 @@ Page({
   //获取用户信息
   bindgetuserinfo(e){
     if(e.detail.errMsg=="getUserInfo:ok"){
-      let userInfo=e.detail.userInfo
+      let userInfo=e.detail.userInfo;
       db.collection("userInfor").add({
       data:{
         nickname:userInfo.nickName,

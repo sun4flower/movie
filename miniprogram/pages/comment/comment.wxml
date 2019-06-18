@@ -39,8 +39,6 @@
       <view style="display:flex;">
           <image wx:for="{{item.fileId}}"  wx:for-item="atom" wx:key="key" src="{{atom}}" class="reviewImg"></image>
       </view>
-    
-        
     </view>
     
   </view>
